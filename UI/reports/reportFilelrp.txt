@@ -1,0 +1,12 @@
+
+DBUiTests tests/query/: SqlMathematicalOperators	 
+
+SumSqlFunction:		Failed
+
+ModSQLFucntion:		Failed
+
+DBUiTests tests/query/: basicQueryStatements	 
+
+BasicSelectStmt:		Failed
+
+VaidQuery:		Passed

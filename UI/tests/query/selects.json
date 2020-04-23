@@ -1,0 +1,22 @@
+{
+    "suitename": "basicQueryStatements",
+    "config": {
+        "connectorname": "PostgreSQL",
+        "activityname": "PostgreSQL Query",
+        "connectionName": "apadwal1234"
+    },
+    "testcases": [
+        {
+            "testName": "BasicSelectStmt",
+            "query": "Select * from actor;",
+            "input": "dafdsac",
+            "output": "adca"
+        },
+        {
+            "testName": "VaidQuery",
+            "query": " ",
+            "input": "dafdsac",
+            "output": "adca"
+        }
+    ]
+}

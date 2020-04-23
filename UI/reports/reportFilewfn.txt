@@ -1,0 +1,16 @@
+
+DBUiTests PostgreSQL: SqlMathematicalOperators	 
+
+SumSqlFunction:		Failed
+
+ModSQLFucntion:		Failed
+
+DBUiTests tests/query/: basicQueryStatements	 
+
+BasicSelectStmt:		Failed
+
+VaidQuery:		Passed
+
+DBUiTests tests/create/: MySqlBasicSelect	 
+
+Mysql fuction:		Passed

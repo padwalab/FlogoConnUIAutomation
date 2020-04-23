@@ -1,0 +1,16 @@
+{
+    "suitename": "MySqlBasicSelect",
+    "config": {
+        "connectorname": "MySQL",
+        "activityname": "MySQL Query",
+        "connectionName": "mysqlConn1234"
+    },
+    "testcases": [
+        {
+            "testName": "Mysql fuction",
+            "query": "Select * from employees;",
+            "input": "dafdsac",
+            "output": "adca"
+        }
+    ]
+}

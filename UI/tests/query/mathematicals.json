@@ -1,0 +1,22 @@
+{
+    "suitename": "SqlMathematicalOperators",
+    "config": {
+        "connectorname": "PostgreSQL",
+        "activityname": "PostgreSQL Insert",
+        "connectionName": "apadwal1234"
+    },
+    "testcases": [
+        {
+            "testName": "SumSqlFunction",
+            "query": "Select sum(id) from actor;",
+            "input": "dafdsac",
+            "output": "adca"
+        },
+        {
+            "testName": "ModSQLFucntion",
+            "query": "Select mod(id, 2) from actor;",
+            "input": "dafdsac",
+            "output": "adca"
+        }
+    ]
+}

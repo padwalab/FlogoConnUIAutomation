@@ -1,0 +1,20 @@
+[
+    {
+        "Name": "apadwal1234",
+        "ConnectorName": "PostgreSQL",
+        "Host": "postgres_dbui_test",
+        "Port": "5432",
+        "DatabaseName": "dvdrental",
+        "User": "postgres",
+        "Password": "docker"
+    },
+    {
+        "Name": "mysqlConn1234",
+        "ConnectorName": "MySQL",
+        "Host": "mysql_dbui_test",
+        "Port": "3306",
+        "DatabaseName": "classicmodels",
+        "User": "root",
+        "Password": "docker"
+    }
+]

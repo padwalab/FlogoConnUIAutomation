@@ -1,0 +1,72 @@
+# author: Abhijeet Padwal <apadwal@tibco.com>
+# Purpose of this docker-compose file is to setup the flogo like dbservice environment
+# Setup Databases and initialize them with scripts
+# Goal:
+#   1. Achieve the extensive microservice testing
+#   2. Setup and teardown automation (fresh env for each test run)
+#   3. Extendable framework for test case addition
+#   4. QA consideration for test case shareability
+
+version: "3"
+
+services:
+  postgres_dbui_test:
+    image: postgres:latest
+    container_name: postgres_dbui_test
+    environment:
+      - POSTGRES_USER=${TEST_PG_DB_USER}
+      - POSTGRES_PASSWORD=${TEST_PG_DB_PASSWORD}
+      - POSTGRES_DB=${TEST_PG_DB_NAME}
+      - DATABASE_HOST=${TEST_PG_DB_HOST}
+    expose:
+      - "5432"
+    # ports:
+    #   - "5555:5432"
+    volumes:
+      - ./dbscripts/PostgreSQL/init_pg.sql:/docker-entrypoint-initdb.d/init_pg.sql
+    logging:
+      driver: none
+    networks:
+      - dbservice_ui_test_net
+
+  mysql_dbui_test:
+    image: mysql:5.7
+    container_name: mysql_dbui_test
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=classicmodels
+      # - MYSQL_USER=apadwal
+      # - MYSQL_PASSWORD=docker
+      - MYSQL_ROOT_PASSWORD=docker
+      # - DATABASE_HOST=mysql_test
+    volumes:
+      - ./dbscripts/MySQL/init_my.sql:/docker-entrypoint-initdb.d/init_my.sql
+    expose:
+      - "3306"
+    ports:
+      - "3333:3306"
+    logging:
+      driver: none
+    networks:
+      - dbservice_ui_test_net
+
+  sqlserver_dbui_test:
+    image: microsoft/mssql-server-linux:2017-latest
+    container_name: sqlserver_dbui_test
+    environment:
+      SA_PASSWORD: "change_this_password"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - ./dbscripts/SQLServer/init_sqlserver.sql:/docker-entrypoint-initdb.d/init_sqlserver.sql
+    # expose:
+    #   - "1433"
+    ports:
+      - "1444:1433"
+    logging:
+      driver: none
+    networks:
+      - dbservice_ui_test_net
+
+networks:
+  dbservice_ui_test_net:
+    driver: bridge
