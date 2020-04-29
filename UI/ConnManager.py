@@ -2,7 +2,11 @@
 
 import time
 from utils import waitForElementToBeVisible, xpath_soup
-from bs4 import BeautifulSoup
+from setupHelper import install
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    install("bs4")
 from selenium import webdriver
 
 

@@ -8,6 +8,7 @@ try:
     from selenium import webdriver
 except ImportError:
     install("selenium")
+    install("chromedriver")
 from ConnManager import getConnectionPool, handleConnection
 from flowSetup import deleteFlow, randomString, setupFlowEnv
 from suiteSetup import setupTestSuiteEnv
@@ -20,7 +21,9 @@ def FlogoInit():
     # options = Options()
     # options.add_argument("--headless")
     # browser = webdriver.Chrome(options=options)
-    browser = webdriver.Chrome()
+    # browser = webdriver.Chrome()
+    browser = webdriver.Chrome(executable_path='../webdriver/chromedriver')
+
     browser.get("http://localhost:8090/")
     return browser
 
