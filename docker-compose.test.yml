@@ -43,8 +43,8 @@ services:
       - ./dbscripts/MySQL/init_my.sql:/docker-entrypoint-initdb.d/init_my.sql
     expose:
       - "3306"
-    ports:
-      - "3333:3306"
+    # ports:
+    #   - "3333:3306"
     logging:
       driver: none
     networks:

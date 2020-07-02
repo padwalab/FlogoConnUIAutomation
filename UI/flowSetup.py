@@ -1,12 +1,23 @@
 #!/usr/bin/python3
 
-import time
+# /**
+# * @author Abhijeet Padwal
+# * @email apadwal@tibco.com
+# * @create date 2020-07-02 16: 19: 02
+# * @modify date 2020-07-02 16: 19: 02
+# * @desc[description]
+# */
+
+
+from selenium.webdriver.common.action_chains import ActionChains
+from utils import randomString, waitForElementToBeVisible, xpath_soup
 from setupHelper import install
+import time
+
 try:
     from bs4 import BeautifulSoup
 except ImportError:
     install("BeautifulSoup")
-from utils import randomString, waitForElementToBeVisible, xpath_soup
 
 
 def subCreateApp(browser, appName):
@@ -26,13 +37,17 @@ def subCreateApp(browser, appName):
 
 def createApp(browser, appName):
     soup = BeautifulSoup(browser.page_source, "html.parser")
-    createAppElem = xpath_soup(
-        soup.find("button", {"id": "tropos-create-app"}))
+    if soup.find("div", {"class": "empty-add"}):
+        createAppElem = xpath_soup(
+            soup.find("div", {"id": "ng-listing-create"}))
+    else:
+        createAppElem = xpath_soup(
+            soup.find("button", {"id": "ng-listing-create"}))
     createAppButton = browser.find_element_by_xpath(createAppElem)
     createAppButton.click()
-    print("[INFO] Creating the app:", appName)
-    # time.sleep(2)
-    return subCreateApp(browser, appName)
+    # print("[INFO] Creating the app:", appName)
+    time.sleep(2)
+    # return subCreateApp(browser, appName)
 
 
 def subCreateFlow(browser, flowName):
@@ -55,56 +70,66 @@ def subCreateFlow(browser, flowName):
 def createFlow(browser, flowName):
     if waitForElementToBeVisible(browser, "id", "createFlow"):
         soup = BeautifulSoup(browser.page_source, "html.parser")
+        appName = soup.find("div", {"id": "ng-details-edit-name"}).text
         createFlowElem = xpath_soup(
             soup.find("button", {"id": "createFlow"}))
         createFlowButton = browser.find_element_by_xpath(createFlowElem)
         createFlowButton.click()
         print("[INFO] Setting up flow...")
         time.sleep(2)
-        return subCreateFlow(browser, flowName)
+        return subCreateFlow(browser, flowName), appName
 
 
 def setupFlowEnv(browser):
     browser.get("http://localhost:8090/applications")
-    if waitForElementToBeVisible(browser, "class", "tropos-inline-block-right"):
+    # if waitForElementToBeVisible(browser, "class", "empty-mode"):
+
+    if waitForElementToBeVisible(browser, "id", "ng-listing-create"):
         appName = randomString()
         bwsr = createApp(browser, appName)
         flowName = randomString()
-        bwsr = createFlow(bwsr, flowName)
+        bwsr, appName = createFlow(browser, flowName)
         time.sleep(5)
         return bwsr, appName
 
 
 def performDelete(browser):
     soup = BeautifulSoup(browser.page_source, "html.parser")
-    appDeleteElem = xpath_soup(soup.find(
-        "button", {"class": "tc-buttons tc-buttons-primary tc-modal-content-right-margin"}))
-    appDeleteBtn = browser.find_element_by_xpath(appDeleteElem)
-    appDeleteBtn.click()
-    time.sleep(2)
-    print('[INFO] App deleted...')
+    if waitForElementToBeVisible(browser, "id", "ng-listing-delete-ok"):
+        appDeleteElem = xpath_soup(soup.find(
+            "button", {"id": "ng-listing-delete-ok"}))
+        appDeleteBtn = browser.find_element_by_xpath(appDeleteElem)
+        appDeleteBtn.click()
+        time.sleep(2)
+        print('[INFO] App deleted...')
 
 
 def deleteFlow(browser, appName):
     print("deleteFlow ", appName)
     browser.get("http://localhost:8090/applications")
-    if waitForElementToBeVisible(browser, "class", "tropos-inline-block-right"):
+    if waitForElementToBeVisible(browser, "class", "appListTable"):
         soup = BeautifulSoup(browser.page_source, "html.parser")
         appListElem = soup.find(
-            "div", {"class": "tropos-applications-main-panel"})
+            "div", {"class": "appListTable"})
         time.sleep(2)
-        for apps in appListElem.findAll("div", {"class": "tropos-appbox-main-panel col-md-12"}):
-            if appName in apps.find("div", {"class": "tropos-appbox-content-name-app ng-binding"}).text:
+        for apps in appListElem.findAll("div", {"class": "ng-table-row info custom-table-row"}):
+            if apps.find("div", {"title": appName}):
                 print("found the app [", appName, "]")
+                actbtns = xpath_soup(apps.find(
+                    "div", {"class": "action-btns"}))
+                actbtnselem = browser.find_element_by_xpath(actbtns)
+                hov = ActionChains(browser).move_to_element(actbtnselem)
+                hov.perform()
+
                 dpdwn = xpath_soup(
-                    apps.find("div", {"class": "tropos-apps-actions ng-isolate-scope"}))
+                    apps.find("div", {"class": "row-btn ng-ic ng-ic-delete"}))
                 dpdownbtn = browser.find_element_by_xpath(dpdwn)
                 dpdownbtn.click()
-                dltelem = xpath_soup(
-                    apps.find("a", {"class": "tropos-apps-delete-app mchNoDecorate"}))
-                dltBtn = browser.find_element_by_xpath(dltelem)
-                dltBtn.click()
-                time.sleep(2)
+                # dltelem = xpath_soup(
+                #     apps.find("a", {"class": "tropos-apps-delete-app mchNoDecorate"}))
+                # dltBtn = browser.find_element_by_xpath(dltelem)
+                # dltBtn.click()
+                time.sleep(5)
                 performDelete(browser)
 
 

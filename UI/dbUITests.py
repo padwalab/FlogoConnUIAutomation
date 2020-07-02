@@ -1,5 +1,13 @@
 #!/usr/bin/python3
 
+# /**
+# * @author Abhijeet Padwal
+# * @email apadwal@tibco.com
+# * @create date 2020-07-02 16: 19: 02
+# * @modify date 2020-07-02 16: 19: 02
+# * @desc[description]
+# */
+
 import json
 import glob
 import time
@@ -21,8 +29,8 @@ def FlogoInit():
     # options = Options()
     # options.add_argument("--headless")
     # browser = webdriver.Chrome(options=options)
-    # browser = webdriver.Chrome()
-    browser = webdriver.Chrome(executable_path='../webdriver/chromedriver')
+    browser = webdriver.Chrome()
+    # browser = webdriver.Chrome(executable_path='../webdriver/chromedriver')
 
     browser.get("http://localhost:8090/")
     return browser

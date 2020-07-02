@@ -1,5 +1,13 @@
 #!/usr/bin/python3
 
+# /**
+# * @author Abhijeet Padwal
+# * @email apadwal@tibco.com
+# * @create date 2020-07-02 16: 19: 02
+# * @modify date 2020-07-02 16: 19: 02
+# * @desc[description]
+# */
+
 import time
 from bs4 import BeautifulSoup
 from utils import waitForElementToBeVisible, xpath_soup
@@ -54,8 +62,8 @@ def selectActivity(browser, config):
 
 
 def setupTestSuiteEnv(browser, config):
+    soup = BeautifulSoup(browser.page_source, "html.parser")
     if waitForElementToBeVisible(browser, "class", "diagram-container"):
-        soup = BeautifulSoup(browser.page_source, "html.parser")
         addActivityElem = xpath_soup(
             soup.find("div", {"data-flogo-node-type": "node_add"}))
         addActivityButton = browser.find_element_by_xpath(addActivityElem)

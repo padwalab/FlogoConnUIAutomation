@@ -1,0 +1,16 @@
+
+DBUiTests tests/query/: SqlMathematicalOperators	 
+
+SumSqlFunction:		Failed
+
+ModSQLFucntion:		Failed
+
+DBUiTests tests/query/: basicQueryStatements	 
+
+BasicSelectStmt:		Passed
+
+VaidQuery:		Passed
+
+DBUiTests tests/create/: MySqlBasicSelect	 
+
+Mysql fuction:		Passed
