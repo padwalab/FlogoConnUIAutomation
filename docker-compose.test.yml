@@ -50,22 +50,22 @@ services:
     networks:
       - dbservice_ui_test_net
 
-  sqlserver_dbui_test:
-    image: microsoft/mssql-server-linux:2017-latest
-    container_name: sqlserver_dbui_test
-    environment:
-      SA_PASSWORD: "change_this_password"
-      ACCEPT_EULA: "Y"
-    volumes:
-      - ./dbscripts/SQLServer/init_sqlserver.sql:/docker-entrypoint-initdb.d/init_sqlserver.sql
-    # expose:
-    #   - "1433"
-    ports:
-      - "1444:1433"
-    logging:
-      driver: none
-    networks:
-      - dbservice_ui_test_net
+  # sqlserver_dbui_test:
+  #   image: microsoft/mssql-server-linux:2017-latest
+  #   container_name: sqlserver_dbui_test
+  #   environment:
+  #     SA_PASSWORD: "change_this_password"
+  #     ACCEPT_EULA: "Y"
+  #   volumes:
+  #     - ./dbscripts/SQLServer/init_sqlserver.sql:/docker-entrypoint-initdb.d/init_sqlserver.sql
+  #   expose:
+  #     - "1433"
+  #   # ports:
+  #   #   - "1444:1433"
+  #   logging:
+  #     driver: none
+  #   networks:
+  #     - dbservice_ui_test_net
 
 networks:
   dbservice_ui_test_net:

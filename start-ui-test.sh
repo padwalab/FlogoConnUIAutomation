@@ -7,7 +7,7 @@ docker network disconnect flogoconnuiautomation_dbservice_ui_test_net flogo-stud
 
 docker-compose -f docker-compose.test.yml rm -fv postgres_dbui_test
 docker-compose -f docker-compose.test.yml rm -fv mysql_dbui_test
-docker-compose -f docker-compose.test.yml rm -fv sqlserver_dbui_test
+# docker-compose -f docker-compose.test.yml rm -fv sqlserver_dbui_test
 docker-compose -f docker-compose.test.yml up -d --build
 sleep 5
 docker network connect flogoconnuiautomation_dbservice_ui_test_net flogo-studio

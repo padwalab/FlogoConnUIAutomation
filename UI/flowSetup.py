@@ -120,17 +120,17 @@ def deleteFlow(browser, appName):
                 actbtnselem = browser.find_element_by_xpath(actbtns)
                 hov = ActionChains(browser).move_to_element(actbtnselem)
                 hov.perform()
-
-                dpdwn = xpath_soup(
-                    apps.find("div", {"class": "row-btn ng-ic ng-ic-delete"}))
-                dpdownbtn = browser.find_element_by_xpath(dpdwn)
-                dpdownbtn.click()
-                # dltelem = xpath_soup(
-                #     apps.find("a", {"class": "tropos-apps-delete-app mchNoDecorate"}))
-                # dltBtn = browser.find_element_by_xpath(dltelem)
-                # dltBtn.click()
-                time.sleep(5)
-                performDelete(browser)
+                if waitForElementToBeVisible(browser, "class", "row-btn ng-ic ng-ic-delete"):
+                    dpdwn = xpath_soup(
+                        apps.find("div", {"class": "row-btn ng-ic ng-ic-delete"}))
+                    dpdownbtn = browser.find_element_by_xpath(dpdwn)
+                    dpdownbtn.click()
+                    # dltelem = xpath_soup(
+                    #     apps.find("a", {"class": "tropos-apps-delete-app mchNoDecorate"}))
+                    # dltBtn = browser.find_element_by_xpath(dltelem)
+                    # dltBtn.click()
+                    time.sleep(5)
+                    performDelete(browser)
 
 
 # brwsr = FlogoInit()

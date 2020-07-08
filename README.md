@@ -4,6 +4,7 @@ Flogo dbconnectors ui automation framework, validate query, verify schema
 ## Prerequisites DBConnectors UI automation:
 	1. Docker, Docker-compose
 	2. python3 + pip
+	3. chromedriver (please find the compatible chromedriver)
 
 ## To Run DBConnectors UI automation:
 	./start-ui-test.sh
